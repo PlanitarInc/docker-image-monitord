@@ -1,6 +1,10 @@
 # XXX no versioning of the docker image
 IMAGE_NAME=planitar/monitord
 
+ifneq ($(NOCACHE),)
+  NOCACHEFLAG=--no-cache
+endif
+
 .PHONY: build push clean test
 
 build:

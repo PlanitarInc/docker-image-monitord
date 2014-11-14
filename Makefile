@@ -1,18 +1,19 @@
 # XXX no versioning of the docker image
+IMAGE_NAME=planitar/monitord
 
 .PHONY: build push clean test
 
 build:
-	docker build -t planitar/monitord .
+	docker build ${NOCACHEFLAG} -t ${IMAGE_NAME} .
 
 push:
-	docker push planitar/monitord
+	docker push ${IMAGE_NAME}
 
 clean:
-	docker rmi -f planitar/monitord || true
+	docker rmi -f ${IMAGE_NAME} || true
 
 test:
-	docker run -d --name test-monitord planitar/monitord \
+	docker run -d --name test-monitord ${IMAGE_NAME} \
 	  /usr/sbin/collectd -ftT
 	sleep 1
 	logs=`docker logs test-monitord`; \
